@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+
 import { Model } from '../shard.component';
 
 export const loadShardData = createAction(

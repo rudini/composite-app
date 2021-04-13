@@ -1,5 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
+
 import { ModelResponse } from '../services/shard.service';
+
 import { loadShardData, loadShardDataFailed, loadShardDataSuccessfull } from './shard.actions';
 
 

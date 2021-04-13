@@ -5,6 +5,7 @@ import {
   createSelector,
   MetaReducer
 } from '@ngrx/store';
+
 import { environment } from '../../environments/environment';
 import * as fromShard from '../shard/state/shard.reducer';
 import { selectError, selectLoading, selectModel, ShardState } from '../shard/state/shard.reducer';

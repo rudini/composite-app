@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Model } from './shard/shard.component';
-import { selectShardLoading, selectShardModel } from './state/app.reducers';
 import { filter } from 'rxjs/operators';
+
+import { Model } from './shard/shard.component';
 import { loadShardData } from './shard/state/shard.actions';
+import { selectShardLoading, selectShardModel } from './state/app.reducers';
 
 @Component({
     selector: 'app-root',

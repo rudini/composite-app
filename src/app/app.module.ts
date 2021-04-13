@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './state/app.reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { ShardComponent } from './shard/shard.component';
+import { ShardModule } from './shard/shard.module';
 import { ShardEffects } from './shard/state/shard.effects';
 import * as fromShard from './shard/state/shard.reducer';
-import { ShardModule } from './shard/shard.module';
+import { reducers, metaReducers } from './state/app.reducers';
 
 @NgModule({
   declarations: [AppComponent],
