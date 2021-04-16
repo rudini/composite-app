@@ -16,7 +16,6 @@ import {
     metaReducers,
     selectShardLoading,
     selectShardModel,
-    shardFeatureSelector,
 } from './state/app.reducers';
 
 @NgModule({
