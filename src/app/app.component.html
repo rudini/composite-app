@@ -2,10 +2,10 @@
 
 
 
-<div *ngIf="shardLoading$ | async; else show">
+<div *ngIf="shardvm.shardLoading$ | async; else show">
     ...loading
 </div>
 
 <ng-template #show>
-    <app-shard *ngIf="shardModel$ | async as model" [model]="model" (inputChanged)="inputChanged($event)"></app-shard>
+    <app-shard *ngIf="shardvm.shardModel$ | async as model" [model]="model" (inputChanged)="shardvm.inputChanged($event)"></app-shard>
 </ng-template>

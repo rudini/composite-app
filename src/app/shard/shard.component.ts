@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface Model {
     title: string;
@@ -10,6 +10,7 @@ export interface Model {
     selector: 'app-shard',
     templateUrl: './shard.component.html',
     styleUrls: ['./shard.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShardComponent {
 
