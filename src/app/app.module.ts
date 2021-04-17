@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { ShardModule } from './shard/shard.module';
-import { SELECT_SHARD_LOADING, SELECT_SHARD_MODEL } from './shard/shard.viewmodel';
 import { ShardEffects } from './shard/state/shard.effects';
 import * as fromShard from './shard/state/shard.reducer';
 import {
@@ -26,11 +25,7 @@ import {
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot([ShardEffects]),
         StoreModule.forFeature(fromShard.shardFeatureKey, fromShard.reducer),
-        ShardModule,
-    ],
-    providers: [
-        { provide: SELECT_SHARD_LOADING, useValue: selectShardLoading },
-        { provide: SELECT_SHARD_MODEL, useValue: selectShardModel },
+        ShardModule.forRoot({ selectShardLoading, selectShardModel }),
     ],
     bootstrap: [AppComponent],
 })

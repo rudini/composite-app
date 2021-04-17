@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { ModelResponse } from './services/shard.service';
 import { Model } from './shard.component';
+import { FOR_ROOT_OPTIONS_TOKEN, ModuleOptions } from './shard.module';
 import { loadShardData } from './state/shard.actions';
 import { ShardState } from './state/shard.reducer';
 
@@ -18,12 +18,13 @@ export class ShardViewModel implements OnDestroy {
 
     constructor(
         private store: Store<ShardState>,
-        @Inject(SELECT_SHARD_LOADING) selectShardLoading: (state: ShardState) => boolean,
-        @Inject(SELECT_SHARD_MODEL) selectShardModel: (state: ShardState) => ModelResponse | undefined
+        @Inject(FOR_ROOT_OPTIONS_TOKEN) options: ModuleOptions,
+        // @Inject(SELECT_SHARD_LOADING) selectShardLoading: (state: ShardState) => boolean,
+        // @Inject(SELECT_SHARD_MODEL) selectShardModel: (state: ShardState) => ModelResponse | undefined
     ) {
-        this.shardLoading$ = store.select(selectShardLoading);
+        this.shardLoading$ = store.select(options.selectShardLoading);
         this.shardModel$ = store
-            .select(selectShardModel)
+            .select(options.selectShardModel)
             .pipe(filter((c) => !!c)) as Observable<Model>;
 
         store.dispatch(loadShardData({ payload: 200 }));
