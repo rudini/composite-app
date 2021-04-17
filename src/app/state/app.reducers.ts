@@ -1,29 +1,36 @@
 import {
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer
+    ActionReducerMap,
+    createFeatureSelector,
+    createSelector,
+    MetaReducer,
 } from '@ngrx/store';
 
 import { environment } from '../../environments/environment';
 import * as fromShard from '../shard/state/shard.reducer';
-import { selectError, selectLoading, selectModel, ShardState } from '../shard/state/shard.reducer';
+import {
+    selectError,
+    selectLoading,
+    selectModel,
+} from '../shard/state/shard.reducer';
 
-
-export interface State {
-
-  [fromShard.shardFeatureKey]: fromShard.ShardState;
+export interface AppState {
+    [fromShard.shardFeatureKey]: fromShard.ShardState;
 }
 
-export const reducers: ActionReducerMap<State> = {
-
-  [fromShard.shardFeatureKey]: fromShard.reducer,
+export const reducers: ActionReducerMap<AppState> = {
+    [fromShard.shardFeatureKey]: fromShard.reducer,
 };
 
+export const appFeatureSelector = createFeatureSelector<AppState>('app');
+export const shardFeatureSelector = createSelector(
+    appFeatureSelector,
+    (state) => state[fromShard.shardFeatureKey]
+);
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AppState>[] = !environment.production
+    ? []
+    : [];
 
-export const shardFeatureSelector = createFeatureSelector<ShardState>(fromShard.shardFeatureKey);
 export const selectShardLoading = createSelector(
     shardFeatureSelector,
     selectLoading
@@ -36,5 +43,3 @@ export const selectShardModel = createSelector(
     shardFeatureSelector,
     selectModel
 );
-
-
