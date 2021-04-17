@@ -8,9 +8,6 @@ import { FOR_ROOT_OPTIONS_TOKEN, ModuleOptions } from './shard.module';
 import { loadShardData } from './state/shard.actions';
 import { ShardState } from './state/shard.reducer';
 
-export const SELECT_SHARD_LOADING = 'selectShardLoading';
-export const SELECT_SHARD_MODEL = 'selectShardModel';
-
 @Injectable()
 export class ShardViewModel implements OnDestroy {
     shardLoading$: Observable<boolean>;
@@ -18,9 +15,7 @@ export class ShardViewModel implements OnDestroy {
 
     constructor(
         private store: Store<ShardState>,
-        @Inject(FOR_ROOT_OPTIONS_TOKEN) options: ModuleOptions,
-        // @Inject(SELECT_SHARD_LOADING) selectShardLoading: (state: ShardState) => boolean,
-        // @Inject(SELECT_SHARD_MODEL) selectShardModel: (state: ShardState) => ModelResponse | undefined
+        @Inject(FOR_ROOT_OPTIONS_TOKEN) options: ModuleOptions
     ) {
         this.shardLoading$ = store.select(options.selectShardLoading);
         this.shardModel$ = store
