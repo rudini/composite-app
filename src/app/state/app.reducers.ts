@@ -7,11 +7,6 @@ import {
 
 import { environment } from '../../environments/environment';
 import * as fromShard from '../shard/state/shard.reducer';
-import {
-    selectError,
-    selectLoading,
-    selectModel,
-} from '../shard/state/shard.reducer';
 
 export interface AppState {
     [fromShard.shardFeatureKey]: fromShard.ShardState;
@@ -33,13 +28,13 @@ export const metaReducers: MetaReducer<AppState>[] = !environment.production
 
 export const selectShardLoading = createSelector(
     shardFeatureSelector,
-    selectLoading
+    fromShard.selectLoading
 );
 export const selectShardError = createSelector(
     shardFeatureSelector,
-    selectError
+    fromShard.selectError
 );
 export const selectShardModel = createSelector(
     shardFeatureSelector,
-    selectModel
+    fromShard.selectModel
 );
