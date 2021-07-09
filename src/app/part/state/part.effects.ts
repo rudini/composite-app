@@ -1,24 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 
-import { concatMap } from 'rxjs/operators';
-import { Observable, EMPTY } from 'rxjs';
-import { PartActionTypes, PartActions } from './part.actions';
+import { PartService } from '../service/part.service';
 
-
+import {
+  loadPartData,
+  loadPartDataFailed,
+  loadPartDataSuccessfull,
+} from './part.actions';
 
 @Injectable()
 export class PartEffects {
+  constructor(private actions$: Actions, private partService: PartService) {}
 
-
-  @Effect()
-  loadParts$ = this.actions$.pipe(
-    ofType(PartActionTypes.LoadParts),
-    /** An EMPTY observable only emits completion. Replace with your own observable API request */
-    concatMap(() => EMPTY as Observable<{ type: string }>)
-  );
-
-
-  constructor(private actions$: Actions<PartActions>) {}
-
+  // A simple structure to load and save data in the store
+  loadParts$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadPartData),
+      mergeMap(({ payload }) =>
+        this.partService.loadPartData(payload).pipe(
+          map((result) => loadPartDataSuccessfull({ payload: result })),
+          catchError((err: Error) =>
+            of(loadPartDataFailed({ payload: err.message }))
+          )
+        )
+      )
+    );
+  });
 }

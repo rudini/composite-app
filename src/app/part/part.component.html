@@ -1,1 +1,13 @@
-<p>part works!</p>
+<h1>{{ model.title }}</h1>
+<p>{{ model.description }}</p>
+<img [src]="model.image" alt="Cats" />
+
+<div>
+  <label for="width">image width</label>
+  <input
+    id="width"
+    (input)="inputChange$.emit($event)"
+    type="number"
+    value="300"
+  />
+</div>

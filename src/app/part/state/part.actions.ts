@@ -1,14 +1,20 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
-export enum PartActionTypes {
-  LoadParts = '[Part] Load Parts',
-  
-  
-}
+import { Model } from '../part.component';
 
-export class LoadParts implements Action {
-  readonly type = PartActionTypes.LoadParts;
-}
+export const loadPartData = createAction(
+  '[Source] load part data',
+  props<{
+    payload: number;
+  }>()
+);
 
+export const loadPartDataSuccessfull = createAction(
+  '[Source] load part data successfull',
+  props<{ payload: Model }>()
+);
 
-export type PartActions = LoadParts;
+export const loadPartDataFailed = createAction(
+  '[Source] load part data failed',
+  props<{ payload: string }>()
+);

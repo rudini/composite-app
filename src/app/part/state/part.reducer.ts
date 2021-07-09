@@ -1,23 +1,47 @@
+import { createReducer, on } from '@ngrx/store';
 
-import { PartActions, PartActionTypes } from './part.actions';
+import { ModelResponse } from '../service/part.service';
+
+import {
+  loadPartData,
+  loadPartDataFailed,
+  loadPartDataSuccessfull,
+} from './part.actions';
 
 export const partFeatureKey = 'part';
 
-export interface State {
-
+export interface PartState {
+  loading: boolean;
+  error?: string;
+  model?: ModelResponse;
 }
 
-export const initialState: State = {
-
+export const initialState: PartState = {
+  loading: false,
 };
 
-export function reducer(state = initialState, action: PartActions): State {
-  switch (action.type) {
+// ##################
+// This reducer needs to be declared outside the part module
+// ##################
+export const reducer = createReducer(
+  initialState,
+  on(loadPartData, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(loadPartDataSuccessfull, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    model: payload,
+  })),
+  on(loadPartDataFailed, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
+  }))
+);
 
-    case PartActionTypes.LoadParts:
-      return state;
-
-    default:
-      return state;
-  }
-}
+// Note that we do not create selectors here, only the projection functions
+export const selectLoading = (state: PartState) => state.loading;
+export const selectError = (state: PartState) => state.error;
+export const selectModel = (state: PartState) => state.model;
