@@ -21,7 +21,7 @@ export const initialState: PartState = {
 };
 
 // ##################
-// This reducer needs to be declared outside the part module
+// This reducer needs to be registered outside the part module
 // ##################
 export const reducer = createReducer(
   initialState,
