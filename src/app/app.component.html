@@ -1,0 +1,11 @@
+<h1>Composite Application</h1>
+
+<div *ngIf="partLoading$ | async; else show">...loading</div>
+
+<ng-template #show>
+  <app-part
+    *ngIf="partModel$ | async as model"
+    [model]="model"
+    (inputChanged)="inputChanged($event)"
+  ></app-part>
+</ng-template>

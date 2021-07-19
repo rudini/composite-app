@@ -4,10 +4,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
-import { AppEffects } from './app.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { PartModule } from './part/part.module';
 import { reducers, metaReducers } from './reducers';
+import * as fromPart from './part/state/part.reducer';
+import { PartEffects } from './part/state/part.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,8 @@ import { reducers, metaReducers } from './reducers';
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([PartEffects]),
+    StoreModule.forFeature(fromPart.partFeatureKey, fromPart.reducer),
     PartModule,
   ],
   providers: [],

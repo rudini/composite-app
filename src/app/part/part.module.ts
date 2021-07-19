@@ -5,6 +5,7 @@ import { PartComponent } from './part.component';
 
 @NgModule({
   declarations: [PartComponent],
+  exports: [PartComponent],
   imports: [CommonModule],
 })
 export class PartModule {}
